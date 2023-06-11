@@ -4,8 +4,9 @@
   "description": "Set of tools to support dependency management when using the Dependency Extraction Webpack Plugin in your WP plugin or WC extension",
   "author": "Tomek Wytrębowicz @tomalec",
   "bin": {
-    "dewped": "./bin/run"
+    "dewped": "./bin/run.js"
   },
+  "type": "module",
   "homepage": "https://github.com/tomalec/dewped",
   "license": "MIT",
   "main": "dist/index.js",

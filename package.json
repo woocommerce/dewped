@@ -20,6 +20,7 @@
   "dependencies": {
     "@oclif/core": "^2",
     "@oclif/plugin-help": "^5",
+    "@oclif/plugin-not-found": "^2.3.26",
     "@oclif/plugin-plugins": "^2.4.7",
     "node-fetch": "^3.3.1"
   },
@@ -47,6 +48,7 @@
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help",
+      "@oclif/plugin-not-found",
       "@oclif/plugin-plugins"
     ],
     "topicSeparator": " ",

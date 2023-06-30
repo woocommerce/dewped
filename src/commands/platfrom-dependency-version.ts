@@ -27,7 +27,18 @@ export default class PlatfromDependencyVersion extends Command {
   static aliases = ['pdep']
 
   static examples = [
-    '<%= config.bin %> <%= command.id %>',
+    `<%= config.bin %> <%= command.id %> --wpVersion=6.0.3 @wordpress/components
+     Name                  WordPress 6.0.3 WooCommerce  Local
+     ───────────────────── ─────────────── ──────────── ─────
+     @wordpress/components 19.8.5                             `,
+    `<%= config.bin %> pdep -w=6.0.3 -c=7.0.1 @wordpress/components -d=.externalized.json
+
+     Name                    WordPress 6.0.3 WooCommerce 7.0.1 Local
+     ─────────────────────── ─────────────── ───────────────── ───────
+     @woocommerce/components                 10.3.0            ^10.3.0
+     @woocommerce/settings                   unknown
+     @wordpress/data         6.6.1                             ^6.15.0
+     react                   17.0.2                                     `,
   ]
 
   public static enableJsonFlag = true

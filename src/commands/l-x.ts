@@ -22,8 +22,13 @@ export default class LatestVersions extends Command {
   static aliases = ['lx', 'latest-x', 'latestversions', 'latest-versions']
 
   static examples = [
-    `$ oex hello friend --from oclif
-hello friend from oclif! (./src/commands/hello/index.ts)
+    `$ <%= config.bin %> <%= command.id %>
+Fetching L-2 versions wordpress!
+["6.2.2","6.1.3","6.0.5"]
+`,
+    `$ <%= config.bin %> l-x woocommerce 4
+Fetching L-4 versions woocommerce!
+["7.8.1","7.7.2","7.6.1","7.5.1","7.4.1"]
 `,
   ]
 

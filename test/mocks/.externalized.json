@@ -1,0 +1,7 @@
+[
+	"react",
+	"@wordpress/data",
+	"foo",
+	"@woocommerce/components",
+	"@woocommerce/settings"
+]

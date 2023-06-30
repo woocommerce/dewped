@@ -27,58 +27,14 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`dewped hello PERSON`](#dewped-hello-person)
-* [`dewped hello world`](#dewped-hello-world)
 * [`dewped help [COMMANDS]`](#dewped-help-commands)
-* [`dewped plugins`](#dewped-plugins)
-* [`dewped plugins:install PLUGIN...`](#dewped-pluginsinstall-plugin)
-* [`dewped plugins:inspect PLUGIN...`](#dewped-pluginsinspect-plugin)
-* [`dewped plugins:install PLUGIN...`](#dewped-pluginsinstall-plugin-1)
-* [`dewped plugins:link PLUGIN`](#dewped-pluginslink-plugin)
-* [`dewped plugins:uninstall PLUGIN...`](#dewped-pluginsuninstall-plugin)
-* [`dewped plugins:uninstall PLUGIN...`](#dewped-pluginsuninstall-plugin-1)
-* [`dewped plugins:uninstall PLUGIN...`](#dewped-pluginsuninstall-plugin-2)
-* [`dewped plugins update`](#dewped-plugins-update)
-
-## `dewped hello PERSON`
-
-Say hello
-
-```
-USAGE
-  $ dewped hello PERSON -f <value>
-
-ARGUMENTS
-  PERSON  Person to say hello to
-
-FLAGS
-  -f, --from=<value>  (required) Who is saying hello
-
-DESCRIPTION
-  Say hello
-
-EXAMPLES
-  $ oex hello friend --from oclif
-  hello friend from oclif! (./src/commands/hello/index.ts)
-```
-
-_See code: [dist/commands/hello/index.ts](https://github.com/tomalec/dewped/blob/v0.0.0/dist/commands/hello/index.ts)_
-
-## `dewped hello world`
-
-Say hello world
-
-```
-USAGE
-  $ dewped hello world
-
-DESCRIPTION
-  Say hello world
-
-EXAMPLES
-  $ dewped hello world
-  hello world! (./src/commands/hello/world.ts)
-```
+* [`dewped l-x [SLUG] [OFFSET]`](#dewped-l-x-slug-offset)
+* [`dewped latest-versions [SLUG] [OFFSET]`](#dewped-latest-versions-slug-offset)
+* [`dewped latest-x [SLUG] [OFFSET]`](#dewped-latest-x-slug-offset)
+* [`dewped latestversions [SLUG] [OFFSET]`](#dewped-latestversions-slug-offset)
+* [`dewped lx [SLUG] [OFFSET]`](#dewped-lx-slug-offset)
+* [`dewped pdep [DEPENDENCIES...]`](#dewped-pdep-dependencies)
+* [`dewped platfrom-dependency-version [DEPENDENCIES...]`](#dewped-platfrom-dependency-version-dependencies)
 
 ## `dewped help [COMMANDS]`
 
@@ -100,236 +56,338 @@ DESCRIPTION
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.9/src/commands/help.ts)_
 
-## `dewped plugins`
+## `dewped l-x [SLUG] [OFFSET]`
 
-List installed plugins.
-
-```
-USAGE
-  $ dewped plugins [--core]
-
-FLAGS
-  --core  Show core plugins.
-
-DESCRIPTION
-  List installed plugins.
-
-EXAMPLES
-  $ dewped plugins
-```
-
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/index.ts)_
-
-## `dewped plugins:install PLUGIN...`
-
-Installs a plugin into the CLI.
+Get the range of x+1 latest versions of a package
 
 ```
 USAGE
-  $ dewped plugins:install PLUGIN...
+  $ dewped l-x [SLUG] [OFFSET] [--json] [-r] [-p]
 
 ARGUMENTS
-  PLUGIN  Plugin to install.
+  SLUG    [default: wordpress] Slug of the extension
+  OFFSET  [default: 2] How far from the latest we should offset
 
 FLAGS
-  -f, --force    Run yarn install with force flag.
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Installs a plugin into the CLI.
-  Can be installed from npm or a git url.
-
-  Installation of a user-installed plugin will override a core plugin.
-
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
-
-ALIASES
-  $ dewped plugins add
-
-EXAMPLES
-  $ dewped plugins:install myplugin 
-
-  $ dewped plugins:install https://github.com/someuser/someplugin
-
-  $ dewped plugins:install someuser/someplugin
-```
-
-## `dewped plugins:inspect PLUGIN...`
-
-Displays installation properties of a plugin.
-
-```
-USAGE
-  $ dewped plugins:inspect PLUGIN...
-
-ARGUMENTS
-  PLUGIN  [default: .] Plugin to inspect.
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
+  -p, --includePatches  Whether to include Patches in the fetched versions. (WordPress is NOT compatible with this)
+  -r, --includeRC       Whether to include Release Candidates in the fetched versions. (WordPress is Not compatible with
+                        this)
 
 GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
-  Displays installation properties of a plugin.
+  Get the range of x+1 latest versions of a package
+
+ALIASES
+  $ dewped lx
+  $ dewped latest-x
+  $ dewped latestversions
+  $ dewped latest-versions
 
 EXAMPLES
-  $ dewped plugins:inspect myplugin
+  $ dewped l-x
+  Fetching L-2 versions wordpress!
+  ["6.2.2","6.1.3","6.0.5"]
+
+  $ dewped l-x woocommerce 4
+  Fetching L-4 versions woocommerce!
+  ["7.8.1","7.7.2","7.6.1","7.5.1","7.4.1"]
 ```
 
-## `dewped plugins:install PLUGIN...`
+_See code: [dist/commands/l-x.ts](https://github.com/tomalec/dewped/blob/v0.0.0/dist/commands/l-x.ts)_
 
-Installs a plugin into the CLI.
+## `dewped latest-versions [SLUG] [OFFSET]`
+
+Get the range of x+1 latest versions of a package
 
 ```
 USAGE
-  $ dewped plugins:install PLUGIN...
+  $ dewped latest-versions [SLUG] [OFFSET] [--json] [-r] [-p]
 
 ARGUMENTS
-  PLUGIN  Plugin to install.
+  SLUG    [default: wordpress] Slug of the extension
+  OFFSET  [default: 2] How far from the latest we should offset
 
 FLAGS
-  -f, --force    Run yarn install with force flag.
-  -h, --help     Show CLI help.
-  -v, --verbose
+  -p, --includePatches  Whether to include Patches in the fetched versions. (WordPress is NOT compatible with this)
+  -r, --includeRC       Whether to include Release Candidates in the fetched versions. (WordPress is Not compatible with
+                        this)
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
-  Installs a plugin into the CLI.
-  Can be installed from npm or a git url.
-
-  Installation of a user-installed plugin will override a core plugin.
-
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
+  Get the range of x+1 latest versions of a package
 
 ALIASES
-  $ dewped plugins add
+  $ dewped lx
+  $ dewped latest-x
+  $ dewped latestversions
+  $ dewped latest-versions
 
 EXAMPLES
-  $ dewped plugins:install myplugin 
+  $ dewped latest-versions
+  Fetching L-2 versions wordpress!
+  ["6.2.2","6.1.3","6.0.5"]
 
-  $ dewped plugins:install https://github.com/someuser/someplugin
-
-  $ dewped plugins:install someuser/someplugin
+  $ dewped l-x woocommerce 4
+  Fetching L-4 versions woocommerce!
+  ["7.8.1","7.7.2","7.6.1","7.5.1","7.4.1"]
 ```
 
-## `dewped plugins:link PLUGIN`
+## `dewped latest-x [SLUG] [OFFSET]`
 
-Links a plugin into the CLI for development.
+Get the range of x+1 latest versions of a package
 
 ```
 USAGE
-  $ dewped plugins:link PLUGIN
+  $ dewped latest-x [SLUG] [OFFSET] [--json] [-r] [-p]
 
 ARGUMENTS
-  PATH  [default: .] path to plugin
+  SLUG    [default: wordpress] Slug of the extension
+  OFFSET  [default: 2] How far from the latest we should offset
 
 FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
+  -p, --includePatches  Whether to include Patches in the fetched versions. (WordPress is NOT compatible with this)
+  -r, --includeRC       Whether to include Release Candidates in the fetched versions. (WordPress is Not compatible with
+                        this)
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
-  Links a plugin into the CLI for development.
-  Installation of a linked plugin will override a user-installed or core plugin.
+  Get the range of x+1 latest versions of a package
 
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
-  command will override the user-installed or core plugin implementation. This is useful for development work.
-
+ALIASES
+  $ dewped lx
+  $ dewped latest-x
+  $ dewped latestversions
+  $ dewped latest-versions
 
 EXAMPLES
-  $ dewped plugins:link myplugin
+  $ dewped latest-x
+  Fetching L-2 versions wordpress!
+  ["6.2.2","6.1.3","6.0.5"]
+
+  $ dewped l-x woocommerce 4
+  Fetching L-4 versions woocommerce!
+  ["7.8.1","7.7.2","7.6.1","7.5.1","7.4.1"]
 ```
 
-## `dewped plugins:uninstall PLUGIN...`
+## `dewped latestversions [SLUG] [OFFSET]`
 
-Removes a plugin from the CLI.
+Get the range of x+1 latest versions of a package
 
 ```
 USAGE
-  $ dewped plugins:uninstall PLUGIN...
+  $ dewped latestversions [SLUG] [OFFSET] [--json] [-r] [-p]
 
 ARGUMENTS
-  PLUGIN  plugin to uninstall
+  SLUG    [default: wordpress] Slug of the extension
+  OFFSET  [default: 2] How far from the latest we should offset
 
 FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
+  -p, --includePatches  Whether to include Patches in the fetched versions. (WordPress is NOT compatible with this)
+  -r, --includeRC       Whether to include Release Candidates in the fetched versions. (WordPress is Not compatible with
+                        this)
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
-  Removes a plugin from the CLI.
+  Get the range of x+1 latest versions of a package
 
 ALIASES
-  $ dewped plugins unlink
-  $ dewped plugins remove
+  $ dewped lx
+  $ dewped latest-x
+  $ dewped latestversions
+  $ dewped latest-versions
+
+EXAMPLES
+  $ dewped latestversions
+  Fetching L-2 versions wordpress!
+  ["6.2.2","6.1.3","6.0.5"]
+
+  $ dewped l-x woocommerce 4
+  Fetching L-4 versions woocommerce!
+  ["7.8.1","7.7.2","7.6.1","7.5.1","7.4.1"]
 ```
 
-## `dewped plugins:uninstall PLUGIN...`
+## `dewped lx [SLUG] [OFFSET]`
 
-Removes a plugin from the CLI.
+Get the range of x+1 latest versions of a package
 
 ```
 USAGE
-  $ dewped plugins:uninstall PLUGIN...
+  $ dewped lx [SLUG] [OFFSET] [--json] [-r] [-p]
 
 ARGUMENTS
-  PLUGIN  plugin to uninstall
+  SLUG    [default: wordpress] Slug of the extension
+  OFFSET  [default: 2] How far from the latest we should offset
 
 FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
+  -p, --includePatches  Whether to include Patches in the fetched versions. (WordPress is NOT compatible with this)
+  -r, --includeRC       Whether to include Release Candidates in the fetched versions. (WordPress is Not compatible with
+                        this)
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
-  Removes a plugin from the CLI.
+  Get the range of x+1 latest versions of a package
 
 ALIASES
-  $ dewped plugins unlink
-  $ dewped plugins remove
+  $ dewped lx
+  $ dewped latest-x
+  $ dewped latestversions
+  $ dewped latest-versions
+
+EXAMPLES
+  $ dewped lx
+  Fetching L-2 versions wordpress!
+  ["6.2.2","6.1.3","6.0.5"]
+
+  $ dewped l-x woocommerce 4
+  Fetching L-4 versions woocommerce!
+  ["7.8.1","7.7.2","7.6.1","7.5.1","7.4.1"]
 ```
 
-## `dewped plugins:uninstall PLUGIN...`
+## `dewped pdep [DEPENDENCIES...]`
 
-Removes a plugin from the CLI.
+Check the versions of given packages delivered by a specific version of the platform.
 
 ```
 USAGE
-  $ dewped plugins:uninstall PLUGIN...
+  $ dewped pdep [DEPENDENCIES...] -w <value> [--json] [-d <value>] [-c <value>] [--wcDEWP <value>]
+    [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  | [--csv | --no-truncate]]
+    [--no-header | ]
 
 ARGUMENTS
-  PLUGIN  plugin to uninstall
+  DEPENDENCIES...  packages to be checked
 
 FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
+  -c, --wcVersion=<value>         WooCommerce version to check against
+  -d, --dependenciesJSON=<value>  Path to the JSON file with dependencies to be checked. If not provided, the list of
+                                  dependencies is read from the command arguments.
+  -w, --wpVersion=<value>         (required) WordPress version to check against
+  -x, --extended                  show extra columns
+  --columns=<value>               only show provided columns (comma-separated)
+  --csv                           output is csv format [alias: --output=csv]
+  --filter=<value>                filter property by partial string matching, ex: name=foo
+  --no-header                     hide table header from output
+  --no-truncate                   do not truncate output to fit screen
+  --output=<option>               output in a more machine friendly format
+                                  <options: csv|json|yaml>
+  --sort=<value>                  property to sort by (prepend '-' for descending)
+  --wcDEWP=<value>                [default: trunk] The revision of WooCommerce monorepo to check DEWP version to be
+                                  considered. It implies the set of packages to be checked in WooCommerce repo.
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
-  Removes a plugin from the CLI.
+  Check the versions of given packages delivered by a specific version of the platform.
+
+  Warning!
+  For WooCommerce, it uses packages map delivered for the development (`trunk`) version of the DEWP. You can change that
+  by providing the `wcDEWP` flag.
+  But it takes WC monorepo revision, NOT the DEWP version.
+  Also this tool assumes that:
+  - All externalized WC packages are prefixed with `@woocommerce/`. That so far is true, but may change in the future.
+  - All WC packages are in the `packages/js` directory. That is not true for all packages, like `/settings` - see
+  https://github.com/woocommerce/woocommerce/issues/35603
+  - `dependency-extraction-webpack-plugin/assets/packages.js` sticks to the simple structure, as we manually parse CJS
+  export to JSON.
+
+
+
 
 ALIASES
-  $ dewped plugins unlink
-  $ dewped plugins remove
+  $ dewped pdep
+
+EXAMPLES
+  $ dewped pdep --wpVersion=6.0.3 @wordpress/components
+       Name                  WordPress 6.0.3 WooCommerce  Local
+       ───────────────────── ─────────────── ──────────── ─────
+       @wordpress/components 19.8.5                             
+
+  $ dewped pdep -w=6.0.3 -c=7.0.1 @wordpress/components -d=.externalized.json
+       Name                    WordPress 6.0.3 WooCommerce 7.0.1 Local
+       ─────────────────────── ─────────────── ───────────────── ───────
+       @woocommerce/components                 10.3.0            ^10.3.0
+       @woocommerce/settings                   unknown
+       @wordpress/data         6.6.1                             ^6.15.0
+       react                   17.0.2
 ```
 
-## `dewped plugins update`
+## `dewped platfrom-dependency-version [DEPENDENCIES...]`
 
-Update installed plugins.
+Check the versions of given packages delivered by a specific version of the platform.
 
 ```
 USAGE
-  $ dewped plugins update [-h] [-v]
+  $ dewped platfrom-dependency-version [DEPENDENCIES...] -w <value> [--json] [-d <value>] [-c <value>] [--wcDEWP <value>]
+    [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  | [--csv | --no-truncate]]
+    [--no-header | ]
+
+ARGUMENTS
+  DEPENDENCIES...  packages to be checked
 
 FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
+  -c, --wcVersion=<value>         WooCommerce version to check against
+  -d, --dependenciesJSON=<value>  Path to the JSON file with dependencies to be checked. If not provided, the list of
+                                  dependencies is read from the command arguments.
+  -w, --wpVersion=<value>         (required) WordPress version to check against
+  -x, --extended                  show extra columns
+  --columns=<value>               only show provided columns (comma-separated)
+  --csv                           output is csv format [alias: --output=csv]
+  --filter=<value>                filter property by partial string matching, ex: name=foo
+  --no-header                     hide table header from output
+  --no-truncate                   do not truncate output to fit screen
+  --output=<option>               output in a more machine friendly format
+                                  <options: csv|json|yaml>
+  --sort=<value>                  property to sort by (prepend '-' for descending)
+  --wcDEWP=<value>                [default: trunk] The revision of WooCommerce monorepo to check DEWP version to be
+                                  considered. It implies the set of packages to be checked in WooCommerce repo.
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
-  Update installed plugins.
+  Check the versions of given packages delivered by a specific version of the platform.
+
+  Warning!
+  For WooCommerce, it uses packages map delivered for the development (`trunk`) version of the DEWP. You can change that
+  by providing the `wcDEWP` flag.
+  But it takes WC monorepo revision, NOT the DEWP version.
+  Also this tool assumes that:
+  - All externalized WC packages are prefixed with `@woocommerce/`. That so far is true, but may change in the future.
+  - All WC packages are in the `packages/js` directory. That is not true for all packages, like `/settings` - see
+  https://github.com/woocommerce/woocommerce/issues/35603
+  - `dependency-extraction-webpack-plugin/assets/packages.js` sticks to the simple structure, as we manually parse CJS
+  export to JSON.
+
+
+
+
+ALIASES
+  $ dewped pdep
+
+EXAMPLES
+  $ dewped platfrom-dependency-version --wpVersion=6.0.3 @wordpress/components
+       Name                  WordPress 6.0.3 WooCommerce  Local
+       ───────────────────── ─────────────── ──────────── ─────
+       @wordpress/components 19.8.5                             
+
+  $ dewped pdep -w=6.0.3 -c=7.0.1 @wordpress/components -d=.externalized.json
+       Name                    WordPress 6.0.3 WooCommerce 7.0.1 Local
+       ─────────────────────── ─────────────── ───────────────── ───────
+       @woocommerce/components                 10.3.0            ^10.3.0
+       @woocommerce/settings                   unknown
+       @wordpress/data         6.6.1                             ^6.15.0
+       react                   17.0.2
 ```
+
+_See code: [dist/commands/platfrom-dependency-version.ts](https://github.com/tomalec/dewped/blob/v0.0.0/dist/commands/platfrom-dependency-version.ts)_
 <!-- commandsstop -->

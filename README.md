@@ -1,11 +1,7 @@
-oclif-hello-world
+dewped
 =================
 
-oclif example Hello World CLI
-
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![CircleCI](https://circleci.com/gh/oclif/hello-world/tree/main.svg?style=shield)](https://circleci.com/gh/oclif/hello-world/tree/main)
-[![GitHub license](https://img.shields.io/github/license/oclif/hello-world)](https://github.com/oclif/hello-world/blob/main/LICENSE)
+CLI tool to support devs using WP- & WC/dependency-extraction-webpack-plugin.
 
 <!-- toc -->
 * [Usage](#usage)
@@ -28,12 +24,7 @@ USAGE
 # Commands
 <!-- commands -->
 * [`dewped help [COMMANDS]`](#dewped-help-commands)
-* [`dewped l-x [SLUG] [OFFSET]`](#dewped-l-x-slug-offset)
 * [`dewped latest-versions [SLUG] [OFFSET]`](#dewped-latest-versions-slug-offset)
-* [`dewped latest-x [SLUG] [OFFSET]`](#dewped-latest-x-slug-offset)
-* [`dewped latestversions [SLUG] [OFFSET]`](#dewped-latestversions-slug-offset)
-* [`dewped lx [SLUG] [OFFSET]`](#dewped-lx-slug-offset)
-* [`dewped pdep [DEPENDENCIES...]`](#dewped-pdep-dependencies)
 * [`dewped platfrom-dependency-version [DEPENDENCIES...]`](#dewped-platfrom-dependency-version-dependencies)
 
 ## `dewped help [COMMANDS]`

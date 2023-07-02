@@ -25,7 +25,7 @@ USAGE
 <!-- commands -->
 * [`dewped help [COMMANDS]`](#dewped-help-commands)
 * [`dewped latest-versions [SLUG] [OFFSET]`](#dewped-latest-versions-slug-offset)
-* [`dewped platfrom-dependency-version [DEPENDENCIES...]`](#dewped-platfrom-dependency-version-dependencies)
+* [`dewped platform-dependency-version [DEPENDENCIES...]`](#dewped-platform-dependency-version-dependencies)
 
 ## `dewped help [COMMANDS]`
 
@@ -86,13 +86,13 @@ EXAMPLES
   ["7.8.1","7.7.2","7.6.1","7.5.1","7.4.1"]
 ```
 
-## `dewped platfrom-dependency-version [DEPENDENCIES...]`
+## `dewped platform-dependency-version [DEPENDENCIES...]`
 
 Check the versions of given packages delivered by a specific version of the platform.
 
 ```
 USAGE
-  $ dewped platfrom-dependency-version [DEPENDENCIES...] -w <value> [--json] [-d <value>] [-c <value>] [--wcDEWP <value>]
+  $ dewped platform-dependency-version [DEPENDENCIES...] -w <value> [--json] [-d <value>] [-c <value>] [--wcDEWP <value>]
     [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  | [--csv | --no-truncate]]
     [--no-header | ]
 
@@ -140,7 +140,7 @@ ALIASES
   $ dewped pdep
 
 EXAMPLES
-  $ dewped platfrom-dependency-version --wpVersion=6.0.3 @wordpress/components
+  $ dewped platform-dependency-version --wpVersion=6.0.3 @wordpress/components
        Name                  WordPress 6.0.3 WooCommerce  Local
        ───────────────────── ─────────────── ──────────── ─────
        @wordpress/components 19.8.5                             
@@ -154,5 +154,5 @@ EXAMPLES
        react                   17.0.2
 ```
 
-_See code: [dist/commands/platfrom-dependency-version.ts](https://github.com/tomalec/dewped/blob/v0.0.0/dist/commands/platfrom-dependency-version.ts)_
+_See code: [dist/commands/platform-dependency-version.ts](https://github.com/tomalec/dewped/blob/v0.0.0/dist/commands/platform-dependency-version.ts)_
 <!-- commandsstop -->

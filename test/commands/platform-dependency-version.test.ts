@@ -1,11 +1,11 @@
 import {expect, test} from '@oclif/test'
 import {readFile} from 'node:fs/promises'
 
-describe('platfrom-dependency-version', () => {
+describe('platform-dependency-version', () => {
   describe('checks dependencies versions for a given WP version', () => {
     test
     .stdout()
-    .command(['platfrom-dependency-version', '--wpVersion=6.0.3', 'react', '@wordpress/data', 'foo'])
+    .command(['platform-dependency-version', '--wpVersion=6.0.3', 'react', '@wordpress/data', 'foo'])
     .it('renders it in a table', ctx => {
       // Header contains the WP version.
       expect(ctx.stdout).to.have.string('WordPress 6.0.3')
@@ -18,7 +18,7 @@ describe('platfrom-dependency-version', () => {
 
     test
     .stdout()
-    .command(['platfrom-dependency-version', '--wpVersion=6.0.3', '@wordpress/components', 'baz', '--dependenciesJSON=test/mocks/.externalized.json'])
+    .command(['platform-dependency-version', '--wpVersion=6.0.3', '@wordpress/components', 'baz', '--dependenciesJSON=test/mocks/.externalized.json'])
     .it('with --dependenciesJSON takes dependencies in from JSON file, ignoring the ones from arguments', ctx => {
       // Header contains the WP version.
       expect(ctx.stdout).to.have.string('WordPress 6.0.3')
@@ -35,7 +35,7 @@ describe('platfrom-dependency-version', () => {
 
     test
     .stdout()
-    .command(['platfrom-dependency-version', '--wpVersion=6.0.3', '--dependenciesJSON=test/mocks/.externalized.json', '--json'])
+    .command(['platform-dependency-version', '--wpVersion=6.0.3', '--dependenciesJSON=test/mocks/.externalized.json', '--json'])
     .it('with `--json` returns them in JSON format', ctx => {
       const result = ctx.returned as string[]
       expect(result).to.deep.equal(
@@ -56,7 +56,7 @@ describe('platfrom-dependency-version', () => {
 
     test
     .stdout()
-    .command(['platfrom-dependency-version', '--wpVersion=6.0.3', '@oclif/core'])
+    .command(['platform-dependency-version', '--wpVersion=6.0.3', '@oclif/core'])
     .it('render it in the table', ctx => {
     // Calcute the table indention.
       const emptyWPWCColumns = ' WordPress 6.0.3 WooCommerce  '.replace(/\S/g, ' ')
@@ -67,7 +67,7 @@ describe('platfrom-dependency-version', () => {
 
     test
     .stdout()
-    .command(['platfrom-dependency-version', '--wpVersion=6.0.3', '@oclif/core', '--json'])
+    .command(['platform-dependency-version', '--wpVersion=6.0.3', '@oclif/core', '--json'])
     .it('include it in the JSON output', async ctx => {
       // Expect the output to contain the local oclif version.
       const result = ctx.returned as string[]
@@ -85,7 +85,7 @@ describe('platfrom-dependency-version', () => {
     describe('checks dependencies versions for a given WP & WC versions', () => {
       test
       .stdout()
-      .command(['platfrom-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.0.1', '--dependenciesJSON=test/mocks/.externalized.json'])
+      .command(['platform-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.0.1', '--dependenciesJSON=test/mocks/.externalized.json'])
       .it('renders it in a table', ctx => {
       // Header contains the WC version.
         expect(ctx.stdout).to.have.string('WooCommerce 7.0.1')
@@ -101,7 +101,7 @@ describe('platfrom-dependency-version', () => {
 
       test
       .stderr()
-      .command(['platfrom-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.0.1', '--dependenciesJSON=test/mocks/.externalized.json'])
+      .command(['platform-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.0.1', '--dependenciesJSON=test/mocks/.externalized.json'])
       .it('warns about not found `@woocommerce/*` packages', ctx => {
         expect(ctx.stderr).to.have.string('Warning: @woocommerce/settings version not found')
         expect(ctx.stderr).to.have.string('WooCommerce 7.0.1')
@@ -109,7 +109,7 @@ describe('platfrom-dependency-version', () => {
 
       test
       .stdout()
-      .command(['platfrom-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.0.1', '--json', '--dependenciesJSON=test/mocks/.externalized.json'])
+      .command(['platform-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.0.1', '--json', '--dependenciesJSON=test/mocks/.externalized.json'])
       .it('with `--json`, returns it in JSON format', ctx => {
         const result = ctx.returned as string[]
         expect(result).to.deep.equal(
@@ -127,7 +127,7 @@ describe('platfrom-dependency-version', () => {
     describe('with `--wcDEWP` param, uses a specific list of packages externalized from WC', () => {
       test
       .stdout()
-      .command(['platfrom-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.8.1', '@woocommerce/admin-layout', '--wcDEWP=7.8.1'])
+      .command(['platform-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.8.1', '@woocommerce/admin-layout', '--wcDEWP=7.8.1'])
       .it('which may add some packages', ctx => {
         // Prints packages with their versions.
         expect(ctx.stdout).to.match(/@woocommerce\/admin-layout\s*1\.0\.0-beta\.0/ms)
@@ -135,7 +135,7 @@ describe('platfrom-dependency-version', () => {
 
       test
       .stdout()
-      .command(['platfrom-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.8.1', '@woocommerce/admin-layout', '--wcDEWP=7.0.1'])
+      .command(['platform-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.8.1', '@woocommerce/admin-layout', '--wcDEWP=7.0.1'])
       .it('which may miss some packages', ctx => {
         // Prints packages with their versions.
         expect(ctx.stdout).to.match(/@woocommerce\/admin-layout\s*$/ms)

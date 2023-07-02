@@ -11,7 +11,7 @@ const endpoints = {
   wcDEWP: (v:string) => `https://raw.githubusercontent.com/woocommerce/woocommerce/${v}/packages/js/dependency-extraction-webpack-plugin/assets/packages.js`,
 }
 
-export default class PlatfromDependencyVersion extends Command {
+export default class platformDependencyVersion extends Command {
   static description = `Check the versions of given packages delivered by a specific version of the platform.
 
   Warning!
@@ -61,7 +61,7 @@ export default class PlatfromDependencyVersion extends Command {
   }
 
   public async run(): Promise<any> {
-    const {flags} = await this.parse(PlatfromDependencyVersion)
+    const {flags} = await this.parse(platformDependencyVersion)
 
     // Get the list of dependencies to be checked.
     const requestedDependencies = flags.dependenciesJSON ?

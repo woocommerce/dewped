@@ -1,5 +1,6 @@
 import {Args, Command, Flags, ux} from '@oclif/core'
-import {access, constants, readFile} from 'node:fs/promises'
+import {constants} from 'node:fs'
+import {access, readFile} from 'node:fs/promises'
 import fetch from 'node-fetch'
 import {noDependenciesProvided, wpVersionNotFound, wcDEWPNotFound} from '../exit-codes.js'
 

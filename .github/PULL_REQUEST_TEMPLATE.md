@@ -21,23 +21,3 @@ _Replace this with a good description of your changes & reasoning._
 
 
 ### Additional details:
-
-<!--
-Optional.
-Enter a summary of all changes in this Pull Request, which will be added to the changelog if accepted.
-Each line should start with change type prefix`(Fix|Add|…) - `, for example:
-> Break - A change breaking previous API or functionality.
-> Add - A new feature, function or functionality was added.
-> Update - Big changes to something that wasn't broken.
-> Fix - Took care of something that wasn't working.
-> Tweak - Small change, that isn't actually very important.
-> Dev - Developer-facing only change.
-> Doc - Updated customer or developer facing documentation
-
-If you remove the "Changelog entry" header, the Pull Request title will be used as the changelog entry.
-
-Add the `changelog: none` label if no changelog entry is needed.
--->
-### Changelog entry
-
->

@@ -58,16 +58,19 @@ describe('platform-dependency-version', () => {
     })
   })
 
-  describe('if there is a package.json in working directory, it checks the dependency versions there', async () => {
+  describe('if there is a package.json in working directory, it checks the dependency versions there', () => {
     // Check the actual oclif version.
-    const localOclifVersion = JSON.parse(await readFile('package.json', 'utf-8')).dependencies['@oclif/core']
+    let localOclifVersion : string
+    before(async () => {
+      localOclifVersion = JSON.parse(await readFile('package.json', 'utf-8')).dependencies['@oclif/core']
+    })
 
     test
     .stdout()
     .command(['platform-dependency-version', '--wpVersion=6.0.3', '@oclif/core'])
     .it('render it in the table', ctx => {
       // Calculate the table indention.
-      const emptyWPWCColumns = ' WordPress 6.0.3 WooCommerce  '.replace(/\S/g, ' ')
+      const emptyWPWCColumns = ' WordPress 6.0.3 '.replace(/\S/g, ' ')
       // Header contains the "Local".
       expect(ctx.stdout).to.have.string('Local')
 

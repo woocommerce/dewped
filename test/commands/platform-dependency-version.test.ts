@@ -7,8 +7,12 @@ describe('platform-dependency-version', () => {
     .stdout()
     .command(['platform-dependency-version', '--wpVersion=6.0.3', 'react', '@wordpress/data', 'foo'])
     .it('renders it in a table', ctx => {
+      // Header contains the package name.
+      expect(ctx.stdout).to.have.string('Name')
       // Header contains the WP version.
       expect(ctx.stdout).to.have.string('WordPress 6.0.3')
+      // Header doesn't contain the WC.
+      expect(ctx.stdout).not.to.have.string('WooCommerce')
 
       // Prints packages with their versions.
       expect(ctx.stdout).to.match(/@wordpress\/data\s*6\.6\.1/ms)
@@ -20,8 +24,12 @@ describe('platform-dependency-version', () => {
     .stdout()
     .command(['platform-dependency-version', '--wpVersion=6.0.3', '@wordpress/components', 'baz', '--dependenciesJSON=test/mocks/.externalized.json'])
     .it('with --dependenciesJSON takes dependencies in from JSON file, ignoring the ones from arguments', ctx => {
+      // Header contains the package name.
+      expect(ctx.stdout).to.have.string('Name')
       // Header contains the WP version.
       expect(ctx.stdout).to.have.string('WordPress 6.0.3')
+      // Header doesn't contain the WC.
+      expect(ctx.stdout).not.to.have.string('WooCommerce')
 
       // Prints packages with their versions.
       expect(ctx.stdout).to.match(/@wordpress\/data\s*6\.6\.1/ms)
@@ -58,8 +66,10 @@ describe('platform-dependency-version', () => {
     .stdout()
     .command(['platform-dependency-version', '--wpVersion=6.0.3', '@oclif/core'])
     .it('render it in the table', ctx => {
-    // Calcute the table indention.
+      // Calcute the table indention.
       const emptyWPWCColumns = ' WordPress 6.0.3 WooCommerce  '.replace(/\S/g, ' ')
+      // Header contains the "Local".
+      expect(ctx.stdout).to.have.string('Local')
 
       // Expect the output to contain the local oclif version.
       expect(ctx.stdout).to.have.string(`@oclif/core${emptyWPWCColumns}${localOclifVersion}`)

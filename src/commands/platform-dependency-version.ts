@@ -12,6 +12,13 @@ const endpoints = {
   wcDEWP: (v:string) => `https://raw.githubusercontent.com/woocommerce/woocommerce/${v}/packages/js/dependency-extraction-webpack-plugin/assets/packages.js`,
 }
 
+export type packageVersions = {
+  name: string,
+  wpVersion: string | null,
+  wcVersion?: string | null,
+  localVersion?: string | null,
+}
+
 export default class platformDependencyVersion extends Command {
   static description = `Check the versions of given packages delivered by a specific version of the platform.
 
@@ -83,9 +90,19 @@ export default class platformDependencyVersion extends Command {
       return this.error(`Packages list for WordPress version ${flags.wpVersion} not found.`, {exit: wpVersionNotFound})
     }
 
+    const columns:ux.Table.table.Columns<packageVersions> = {
+      name: {},
+      wpVersion: {
+        header: 'WordPress ' + flags.wpVersion,
+      },
+    }
+
     let requestedWcDependencies
     const wcDependencies = new Map()
     if (flags.wcVersion) {
+      columns.wcVersion = {
+        header: 'WooCommerce ' + (flags.wcVersion),
+      }
       // Fetch the list of DEWPed WC packages.
       let wcDEWPED: Array<string>
       try {
@@ -128,6 +145,10 @@ export default class platformDependencyVersion extends Command {
     const hasLocalPackageJson = await access(localPackageJsonPath, constants.R_OK).then(() => true).catch(() => false)
     let localDependencies:any
     if (hasLocalPackageJson) {
+      columns.localVersion = {
+        header: 'Local',
+      }
+
       const contents = await readFile(localPackageJsonPath, {encoding: 'utf8'})
       localDependencies = JSON.parse(contents).dependencies
     }
@@ -141,18 +162,7 @@ export default class platformDependencyVersion extends Command {
       }
     })
 
-    ux.table(allData, {
-      name: {},
-      wpVersion: {
-        header: 'WordPress ' + flags.wpVersion,
-      },
-      wcVersion: {
-        header: 'WooCommerce ' + (flags.wcVersion || ''),
-      },
-      localVersion: {
-        header: 'Local',
-      },
-    }, {
+    ux.table(allData, columns, {
       printLine: this.log.bind(this),
       ...flags, // parsed flags
     })

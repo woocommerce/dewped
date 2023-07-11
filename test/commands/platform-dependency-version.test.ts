@@ -48,11 +48,11 @@ describe('platform-dependency-version', () => {
       const result = ctx.returned as string[]
       expect(result).to.deep.equal(
         [
-          {name: 'react', wpVersion: '17.0.2', wcVersion: null, localVersion: null},
-          {name: '@wordpress/data', wpVersion: '6.6.1', wcVersion: null, localVersion: null},
-          {name: 'foo', wpVersion: null, wcVersion: null, localVersion: null},
-          {name: '@woocommerce/components', wpVersion: null, wcVersion: null, localVersion: null},
-          {name: '@woocommerce/settings', wpVersion: null, wcVersion: null, localVersion: null},
+          {name: 'react', wpVersion: '17.0.2', localVersion: null},
+          {name: '@wordpress/data', wpVersion: '6.6.1', localVersion: null},
+          {name: 'foo', wpVersion: null, localVersion: null},
+          {name: '@woocommerce/components', wpVersion: null, localVersion: null},
+          {name: '@woocommerce/settings', wpVersion: null, localVersion: null},
         ],
       )
     })
@@ -83,7 +83,7 @@ describe('platform-dependency-version', () => {
       const result = ctx.returned as string[]
       expect(result).to.deep.equal(
         [
-          {name: '@oclif/core', wpVersion: null, wcVersion: null, localVersion: localOclifVersion},
+          {name: '@oclif/core', wpVersion: null, localVersion: localOclifVersion},
         ],
       )
     })

@@ -141,8 +141,8 @@ ALIASES
 
 EXAMPLES
   $ dewped platform-dependency-version --wpVersion=6.0.3 @wordpress/components
-       Name                  WordPress 6.0.3 WooCommerce  Local
-       ───────────────────── ─────────────── ──────────── ─────
+       Name                  WordPress 6.0.3
+       ───────────────────── ───────────────
        @wordpress/components 19.8.5                             
 
   $ dewped pdep -w=6.0.3 -c=7.0.1 @wordpress/components -d=.externalized.json

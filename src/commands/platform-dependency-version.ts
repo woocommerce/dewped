@@ -36,8 +36,8 @@ export default class platformDependencyVersion extends Command {
 
   static examples = [
     `<%= config.bin %> <%= command.id %> --wpVersion=6.0.3 @wordpress/components
-     Name                  WordPress 6.0.3 WooCommerce  Local
-     ───────────────────── ─────────────── ──────────── ─────
+     Name                  WordPress 6.0.3
+     ───────────────────── ───────────────
      @wordpress/components 19.8.5                             `,
     `<%= config.bin %> pdep -w=6.0.3 -c=7.0.1 @wordpress/components -d=.externalized.json
 
@@ -153,13 +153,20 @@ export default class platformDependencyVersion extends Command {
       localDependencies = JSON.parse(contents).dependencies
     }
 
-    const allData = requestedDependencies.map(dep => {
-      return {
+    const allData : packageVersions[] = requestedDependencies.map(dep => {
+      const dependencyVersions: packageVersions = {
         name: dep,
         wpVersion: wpDependencies[dep] || null,
-        wcVersion: wcDependencies.get(dep) || null,
-        localVersion: localDependencies?.[dep] || null,
       }
+      if (flags.wcVersion) {
+        dependencyVersions.wcVersion = wcDependencies.get(dep) || null
+      }
+
+      if (localDependencies) {
+        dependencyVersions.localVersion = localDependencies[dep] || null
+      }
+
+      return dependencyVersions
     })
 
     ux.table(allData, columns, {

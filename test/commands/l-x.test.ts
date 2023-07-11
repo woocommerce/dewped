@@ -27,9 +27,10 @@ describe('l-x', () => {
   // Specific slug and version offset.
   test
   .stdout()
-  .command(['l-x', 'google-listings-and-ads'])
-  .it('when slug (first) argument is provided logs that it\'s "Fetching L-2 versions from {slug}"', ctx => {
-    expect(ctx.stdout).to.contain('Fetching L-2 versions google-listings-and-ads!')
+  .command(['l-x', 'google-listings-and-ads', '1'])
+  .it('when slug (first) argument is provided & offset (second) logs that it\'s "Fetching L-{offset-1} versions from {slug}"', ctx => {
+    expect(ctx.stdout).to.contain('Fetching L-1 versions google-listings-and-ads!')
+    expect(ctx.stdout.trim().split('\n').pop()).to.match(/\["\d+\.\d+\.\d+","\d+\.\d+\.\d+"]/)
   })
 
   describe('with `--json` param', () => {

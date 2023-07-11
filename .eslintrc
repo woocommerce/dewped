@@ -9,5 +9,13 @@
   ],
   "rules": {
     "node/no-missing-import": "off"
-  }
+  },
+  "overrides": [
+      {
+          "files": ["bin/run.js"],
+          "rules": {
+              "node/shebang": "off"
+          }
+      }
+  ]
 }

@@ -66,7 +66,7 @@ describe('platform-dependency-version', () => {
     .stdout()
     .command(['platform-dependency-version', '--wpVersion=6.0.3', '@oclif/core'])
     .it('render it in the table', ctx => {
-      // Calcute the table indention.
+      // Calculate the table indention.
       const emptyWPWCColumns = ' WordPress 6.0.3 WooCommerce  '.replace(/\S/g, ' ')
       // Header contains the "Local".
       expect(ctx.stdout).to.have.string('Local')

@@ -137,7 +137,7 @@ export default class platformDependencyVersion extends Command {
         name: dep,
         wpVersion: wpDependencies[dep] || null,
         wcVersion: wcDependencies.get(dep) || null,
-        localVersion: localDependencies[dep] || null,
+        localVersion: localDependencies?.[dep] || null,
       }
     })
 

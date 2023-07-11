@@ -1,3 +1,9 @@
+/**
+ * Command to get latest versions of a given plugin or platform.
+ *
+ * The code was cloned from
+ * https://github.com/woocommerce/grow/blob/e4e0d31c0844f038d1657ca74e2bc47725bc294a/packages/js/github-actions/actions/get-plugin-releases/src/get-plugin-releases.js
+ */
 import {Args, Command, Flags} from '@oclif/core'
 import fetch from 'node-fetch'
 
@@ -40,7 +46,7 @@ Fetching L-4 versions woocommerce!
   }
 
   static args = {
-    slug: Args.string({description: 'Slug of the extension', default: 'wordpress'}),
+    slug: Args.string({description: 'Slug of the plugin. It should be registered on WordPress.org.', default: 'wordpress'}),
     offset: Args.integer({description: 'How far from the latest we should offset', default: 2}),
   }
 

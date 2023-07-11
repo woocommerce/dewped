@@ -45,7 +45,7 @@ DESCRIPTION
   Display help for dewped.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.9/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.11/src/commands/help.ts)_
 
 ## `dewped latest-versions [SLUG] [OFFSET]`
 
@@ -56,7 +56,7 @@ USAGE
   $ dewped latest-versions [SLUG] [OFFSET] [--json] [-r] [-p]
 
 ARGUMENTS
-  SLUG    [default: wordpress] Slug of the extension
+  SLUG    [default: wordpress] Slug of the plugin. It should be registered on WordPress.org.
   OFFSET  [default: 2] How far from the latest we should offset
 
 FLAGS

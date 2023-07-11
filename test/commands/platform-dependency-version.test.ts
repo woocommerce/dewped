@@ -139,7 +139,7 @@ describe('platform-dependency-version', () => {
       .stdout()
       .command(['platform-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.8.1', '@woocommerce/admin-layout', '--wcDEWP=7.8.1'])
       .it('which may add some packages', ctx => {
-        // Prints packages with their versions.
+        // Prints the package with its version.
         expect(ctx.stdout).to.match(/@woocommerce\/admin-layout\s*1\.0\.0-beta\.0/ms)
       })
 
@@ -147,7 +147,7 @@ describe('platform-dependency-version', () => {
       .stdout()
       .command(['platform-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.8.1', '@woocommerce/admin-layout', '--wcDEWP=7.0.1'])
       .it('which may miss some packages', ctx => {
-        // Prints packages with their versions.
+        // Prints the package without any version.
         expect(ctx.stdout).to.match(/@woocommerce\/admin-layout\s*$/ms)
       })
     })

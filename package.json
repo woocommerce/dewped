@@ -54,6 +54,7 @@
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
+    "dev": "npx ts-node ./bin/dev.js",
     "lint": "eslint . --ext .ts,.js --config .eslintrc",
     "postpack": "shx rm -f oclif.manifest.json",
     "posttest": "npm run lint",

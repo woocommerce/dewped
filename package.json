@@ -4,8 +4,9 @@
   "description": "Set of tools to support dependency management when using the Dependency Extraction Webpack Plugin in your WP plugin or WC extension",
   "author": "Tomek Wytrębowicz @tomalec",
   "bin": {
-    "dewped": "./bin/run"
+    "dewped": "./bin/run.js"
   },
+  "type": "module",
   "homepage": "https://github.com/tomalec/dewped",
   "license": "MIT",
   "main": "dist/index.js",
@@ -19,23 +20,26 @@
   "dependencies": {
     "@oclif/core": "^2",
     "@oclif/plugin-help": "^5",
-    "@oclif/plugin-plugins": "^2.4.7"
+    "@oclif/plugin-not-found": "^2.3.26",
+    "node-fetch": "^3.3.1"
   },
   "devDependencies": {
-    "@oclif/test": "^2.3.22",
+    "@oclif/test": "^2.3.25",
     "@types/chai": "^4",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.18.34",
+    "@types/node-fetch": "^2.6.4",
     "chai": "^4",
     "eslint": "^7.32.0",
     "eslint-config-oclif": "^4",
     "eslint-config-oclif-typescript": "^1.0.3",
+    "eslint-plugin-require-extensions": "^0.1.3",
     "mocha": "^9",
     "oclif": "^3",
-    "shx": "^0.3.3",
+    "shx": "^0.3.4",
     "ts-node": "^10.9.1",
-    "tslib": "^2.5.3",
-    "typescript": "^4.9.5"
+    "tslib": "^2.6.0",
+    "typescript": "^5.1.3"
   },
   "oclif": {
     "bin": "dewped",
@@ -43,18 +47,15 @@
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help",
-      "@oclif/plugin-plugins"
+      "@oclif/plugin-not-found"
     ],
     "topicSeparator": " ",
-    "topics": {
-      "hello": {
-        "description": "Say hello to the world and others"
-      }
-    }
+    "topics": {}
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
-    "lint": "eslint . --ext .ts --config .eslintrc",
+    "dev": "npx ts-node ./bin/dev.js",
+    "lint": "eslint . --ext .ts,.js --config .eslintrc",
     "postpack": "shx rm -f oclif.manifest.json",
     "posttest": "npm run lint",
     "prepack": "npm run build && oclif manifest && oclif readme",
@@ -62,7 +63,7 @@
     "version": "oclif readme && git add README.md"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.0"
   },
   "bugs": "https://github.com/tomalec/dewped/issues",
   "keywords": [

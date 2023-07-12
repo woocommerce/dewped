@@ -1,6 +1,21 @@
 {
   "extends": [
     "oclif",
-    "oclif-typescript"
+    "oclif-typescript",
+    "plugin:require-extensions/recommended"
+  ],
+  "plugins": [
+      "require-extensions"
+  ],
+  "rules": {
+    "node/no-missing-import": "off"
+  },
+  "overrides": [
+      {
+          "files": ["bin/run.js"],
+          "rules": {
+              "node/shebang": "off"
+          }
+      }
   ]
 }

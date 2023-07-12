@@ -177,3 +177,12 @@ export default class platformDependencyVersion extends Command {
     return allData
   }
 }
+
+// Adjust `--json` flag description to mention its precedence over the `--output` flag.
+platformDependencyVersion.baseFlags = {
+  ...platformDependencyVersion.baseFlags,
+  json: {
+    ...platformDependencyVersion.baseFlags.json,
+    description: platformDependencyVersion.baseFlags.json.description + ' Makes any output, even error, a JSON. Overrides the `--output` flag.',
+  },
+}

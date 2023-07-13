@@ -8,6 +8,20 @@ CLI tool to support devs using WP- & WC/dependency-extraction-webpack-plugin.
 * [Commands](#commands)
 <!-- tocstop -->
 # Usage
+
+## Unreleased version
+To use unreleased version, link local build:
+```sh-session
+git checkout git@github.com:woocommerce/dewped.git
+cd dewped
+npm i
+npm run build
+npm link
+dewped
+```
+
+## Released version
+
 <!-- usage -->
 ```sh-session
 $ npm install -g dewped

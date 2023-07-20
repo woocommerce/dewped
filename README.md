@@ -12,7 +12,7 @@ CLI tool to support devs using WP- & WC/dependency-extraction-webpack-plugin.
 ## Unreleased version
 To use unreleased version, link local build:
 ```sh-session
-git checkout git@github.com:woocommerce/dewped.git
+git clone git@github.com:woocommerce/dewped.git
 cd dewped
 npm i
 npm run build

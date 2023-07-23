@@ -41,7 +41,9 @@ Fetching L-4 versions woocommerce!
   public static enableJsonFlag = true
 
   static flags = {
-    includeRC: Flags.boolean({char: 'r', aliases: ['rc'], description: 'Whether to include Release Candidates in the fetched versions. (WordPress is Not compatible with this)'}),
+    includeRC: Flags.boolean({char: 'r', aliases: ['rc'], description: `Whether to include Release Candidates in the fetched versions. (WordPress is NOT compatible with this).
+    By default, it returns the RCs only if UNRELEASED versions. To get all RCs for released versions, add \`--includePatches\` flag.
+    Please note that the behavior of this flag may change in the future.`}),
     includePatches: Flags.boolean({char: 'p', aliases: ['patches'], description: 'Whether to include Patches in the fetched versions. (WordPress is NOT compatible with this)'}),
   }
 
@@ -90,7 +92,7 @@ Fetching L-4 versions woocommerce!
 
         for (const version of versions) {
           const releasesAdded = output.filter(
-            release => !isRC(release),
+            release => (includeRC || !isRC(release)),
           )
 
           if (releasesAdded.length === numberOfReleases) {

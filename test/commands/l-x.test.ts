@@ -55,5 +55,69 @@ describe('l-x', () => {
         expect(version).to.match(/\d+\.\d+\.\d+/)
       }
     })
+    describe('with `--includePatches` param', () => {
+      test
+      .stdout()
+      .command(['l-x', 'woocommerce', '10', '--includePatches', '--json'])
+      .it('returns `{offset}+1` versions', ctx => {
+        const result = ctx.returned as string[]
+        expect(result).to.have.lengthOf(11)
+        for (const version of result) {
+          expect(version).to.match(/\d+\.\d+\.\d+/)
+        }
+      })
+      // Actually there is no quarantee, that the current L-x version will include any patches.
+      // But with a high offset, we increase the likelyhood of that.
+      // Alternatively we could mock the WPORG API responses.
+      test
+      .stdout()
+      .command(['l-x', 'woocommerce', '10', '--includePatches', '--json'])
+      .it('returns different patch versions of the same `x.y` family', ctx => {
+        const result = ctx.returned as string[]
+        const families = new Map<string, number>()
+        for (const version of result) {
+          // Count patches per family.
+          const family = version.split('.').slice(0, 2).join('.')
+          families.set(family, (families.get(family) || 0) + 1)
+        }
+
+        // Expect at least one family to have more than one patch.
+        expect(Math.max(...families.values())).to.be.greaterThan(1)
+      })
+    })
+    // It's hard to check just `--includeRC` param, because there may be no latest RC version.
+    // So we test only the presence of RC versions for the released ones.
+    describe('with `--includeRC` & `--includePatches` params (This is a currently expected behavior but may be changed in the future once we implement a use-case)', () => {
+      test
+      .stdout()
+      .command(['l-x', 'woocommerce', '10', '--includeRC', '--includePatches', '--json'])
+      .it('returns `{offset}+1` versions', ctx => {
+        const result = ctx.returned as string[]
+        expect(result).to.have.lengthOf(11)
+        for (const version of result) {
+          expect(version).to.match(/\d+\.\d+\.\d+/)
+        }
+      })
+
+      // Actually there is no quarantee, that the current L-x version will include any RC.
+      // For example, if there wre x+1 patches, there will be no RC.
+      // But with a high offset, we increase the likelyhood of that.
+      // Alternatively we could mock the WPORG API responses.
+      test
+      .stdout()
+      .command(['l-x', 'woocommerce', '10', '--includeRC', '--includePatches', '--json'])
+      .it('should include all past RC versions', ctx => {
+        const result = ctx.returned as string[]
+        const versionsWithRC = new Set<string>()
+        for (const version of result) {
+          // Count patches per family.
+          const patchVersion = version.split('.').slice(0, 3).join('.')
+          versionsWithRC.add(patchVersion)
+        }
+
+        // Expect at least two versions to have an RC.
+        expect(versionsWithRC.size).to.be.greaterThanOrEqual(2)
+      })
+    })
   })
 })

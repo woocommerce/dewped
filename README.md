@@ -21,6 +21,7 @@ dewped
 ```
 
 ## Released version
+⚠️ The package has not yet been published to the NPM registry, so please follow the steps for "Unreleased version" above.
 
 <!-- usage -->
 ```sh-session

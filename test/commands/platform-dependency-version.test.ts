@@ -103,11 +103,10 @@ describe('platform-dependency-version', () => {
         // Header contains the WC version.
         expect(ctx.stdout).to.have.string('WooCommerce 7.0.1')
 
-        // Should not include WP versions
+        // Should not include versions for WP and non-matching packages.
         expect(ctx.stdout).to.match(/@wordpress\/data\s*$/ms)
         expect(ctx.stdout).to.match(/react\s*$/ms)
-        // Prints packages with their versions.
-        expect(ctx.stdout).to.match(/foo\s*$/ms) // No version for unmatched package
+        expect(ctx.stdout).to.match(/foo\s*$/ms)
         // Prints WC versions
         expect(ctx.stdout).to.match(/@woocommerce\/components\s*10\.3\.0/)
         expect(ctx.stdout).to.match(/@woocommerce\/settings\s*unknown/) // Not found WC package.

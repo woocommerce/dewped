@@ -95,12 +95,29 @@ describe('platform-dependency-version', () => {
 
   // Test WC versions
   describe('with `--wcVersion` param', () => {
-    describe('checks dependencies versions for a given WP & WC versions', () => {
+    describe('checks dependencies versions for a given WC version', () => {
+      test
+      .stdout()
+      .command(['platform-dependency-version', '--wcVersion=7.0.1', '--dependenciesJSON=test/mocks/.externalized.json'])
+      .it('renders it in a table', ctx => {
+        // Header contains the WC version.
+        expect(ctx.stdout).to.have.string('WooCommerce 7.0.1')
+
+        // Should not include versions for WP and non-matching packages.
+        expect(ctx.stdout).to.match(/@wordpress\/data\s*$/ms)
+        expect(ctx.stdout).to.match(/react\s*$/ms)
+        expect(ctx.stdout).to.match(/foo\s*$/ms)
+        // Prints WC versions
+        expect(ctx.stdout).to.match(/@woocommerce\/components\s*10\.3\.0/)
+        expect(ctx.stdout).to.match(/@woocommerce\/settings\s*unknown/) // Not found WC package.
+      })
+    })
+    describe('& `--wpVersion` checks dependencies versions for a given WP & WC versions', () => {
       test
       .stdout()
       .command(['platform-dependency-version', '--wpVersion=6.0.3', '--wcVersion=7.0.1', '--dependenciesJSON=test/mocks/.externalized.json'])
       .it('renders it in a table', ctx => {
-      // Header contains the WC version.
+        // Header contains the WC version.
         expect(ctx.stdout).to.have.string('WooCommerce 7.0.1')
 
         // Prints packages with their versions.

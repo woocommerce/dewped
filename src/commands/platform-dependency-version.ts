@@ -14,7 +14,7 @@ const endpoints = {
 
 export type packageVersions = {
   name: string,
-  wpVersion: string | null,
+  wpVersion?: string | null,
   wcVersion?: string | null,
   localVersion?: string | null,
 }
@@ -55,7 +55,7 @@ export default class platformDependencyVersion extends Command {
     dependenciesJSON: Flags.string({char: 'd', description: 'Path to the JSON file with dependencies to be checked. If not provided, the list of dependencies is read from the command arguments.'}),
     // TODO: make it "latest" by default. Accept "latest" as a value.
     // TODO: add support for minor "families" - `x.y` input.
-    wpVersion: Flags.string({char: 'w', description: 'WordPress version to check against', required: true}),
+    wpVersion: Flags.string({char: 'w', description: 'WordPress version to check against'}),
     wcVersion: Flags.string({char: 'c', description: 'WooCommerce version to check against'}),
     wcDEWP: Flags.string({description: 'The revision of WooCommerce monorepo to check DEWP version to be considered. It implies the set of packages to be checked in WooCommerce repo.', default: 'trunk'}),
     ...ux.table.flags(),
@@ -80,21 +80,24 @@ export default class platformDependencyVersion extends Command {
       return this.error('No dependencies provided.', {exit: noDependenciesProvided})
     }
 
-    // Fetch the list of *all* WP packages for a given version.
-    let wpDependencies: any
-    try {
-      const response = await fetch(endpoints.wordpress(flags.wpVersion))
-      const wpPackageJson = await response.json() as any
-      wpDependencies = wpPackageJson.dependencies
-    } catch {
-      return this.error(`Packages list for WordPress version ${flags.wpVersion} not found.`, {exit: wpVersionNotFound})
-    }
-
     const columns:ux.Table.table.Columns<packageVersions> = {
       name: {},
-      wpVersion: {
+    }
+
+    // Fetch the list of *all* WP packages for a given version.
+    let wpDependencies: any
+    if (flags.wpVersion) {
+      try {
+        const response = await fetch(endpoints.wordpress(flags.wpVersion))
+        const wpPackageJson = await response.json() as any
+        wpDependencies = wpPackageJson.dependencies
+      } catch {
+        return this.error(`Packages list for WordPress version ${flags.wpVersion} not found.`, {exit: wpVersionNotFound})
+      }
+
+      columns.wpVersion = {
         header: 'WordPress ' + flags.wpVersion,
-      },
+      }
     }
 
     let requestedWcDependencies
@@ -156,8 +159,12 @@ export default class platformDependencyVersion extends Command {
     const allData : packageVersions[] = requestedDependencies.map(dep => {
       const dependencyVersions: packageVersions = {
         name: dep,
-        wpVersion: wpDependencies[dep] || null,
       }
+
+      if (flags.wpVersion) {
+        dependencyVersions.wpVersion = wpDependencies[dep] || null
+      }
+
       if (flags.wcVersion) {
         dependencyVersions.wcVersion = wcDependencies.get(dep) || null
       }
